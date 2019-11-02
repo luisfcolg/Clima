@@ -60,6 +60,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DisplayCity.cs" />
     <Compile Include="Models\Password.cs" />
     <Compile Include="Models\TotalCDegrees.cs" />
     <Compile Include="PasswordHelper\PasswordBuilder.cs" />

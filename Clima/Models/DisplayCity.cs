@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Clima.Models
 {
-    class DisplayCity
+    public class DisplayCity
     {
+        public string Name { get; set; }
+        public double Temp { get; set; }
+        public double TempMin { get; set; }
+        public double TempMax { get; set; }
+
+        public DisplayCity()
+        {
+
+        }
     }
 }

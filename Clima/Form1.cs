@@ -13,6 +13,7 @@ using Clima.DataAccess;
 using System.Configuration;
 using Clima.Strategy;
 using Clima.PasswordHelper;
+using Clima.Adapters;
 
 namespace Clima
 {
@@ -23,6 +24,7 @@ namespace Clima
         List<string> cities = new List<string>();
         User active_user;
         List<string> user_cities = new List<string>();
+        List<DisplayCity> datagrid_cities = new List<DisplayCity>();
 
         public Form1()
         {
@@ -40,6 +42,22 @@ namespace Clima
             source.DataSource = cities;
             cities_combo.DataSource = source;
             cities_combo.SelectedIndex = 0;
+
+            source = new BindingSource();
+            source.DataSource = datagrid_cities;
+            dataGridView1.DataSource = source;
+
+            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+            col.HeaderText = "Delete";
+            col.Name = "delete_city";
+            col.Text = "Delete";
+            col.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(col);
+
+            dataGridView1.Columns["Name"].ReadOnly = true;
+            dataGridView1.Columns["Temp"].ReadOnly = true;
+            dataGridView1.Columns["TempMax"].ReadOnly = true;
+            dataGridView1.Columns["TempMin"].ReadOnly = true;
         }
 
         private void LoadCities()
@@ -48,7 +66,8 @@ namespace Clima
             var countries = proxy.Countries();
 
             foreach (var i in countries)
-                cities.Add(i.capital);
+                if(i.capital != "")
+                    cities.Add(i.capital);
         }
 
         private List<string> GetUserCities(User u)
@@ -73,9 +92,9 @@ namespace Clima
             active_user = _service.GetUser(user_login.Text, pass.GetPassword().HashString);
 
             if(active_user == null)
-                MessageBox.Show("Usuario o contraseña incorrectos.", "OK");
+                MessageBox.Show("Wrong user or password.", "OK");
             else
-                MessageBox.Show($"{active_user.Email}", "OK");
+                MessageBox.Show("Successful login.", "OK");
 
             user_login.Text = "";
             pass_login.Text = "";
@@ -86,7 +105,11 @@ namespace Clima
                 panel2.Visible = false;
                 panel1.Visible = false;
 
-                user_cities = GetUserCities(active_user);
+                user_main.Text = active_user.Username;
+                email_main.Text = active_user.Email;
+
+                if(active_user.Cities != "")
+                    user_cities = GetUserCities(active_user);
             }
         }
 
@@ -189,13 +212,129 @@ namespace Clima
 
         private void home_button_Click(object sender, EventArgs e)
         {
-            panel_add.Visible = false;
+            IProxyWeather proxy = new ProxyWeather();
+            TotalCDegrees degrees = new TotalCDegrees();
+            FDegreesConverter converter = new FDegreesConverter(degrees);
 
+            dataGridView1.Rows.Clear();
+
+            foreach(var i in user_cities)
+            {
+                var weather = proxy.Weather(i);
+                converter.ConvertFDegreees(weather.main.temp);
+                double temp = converter.GetCDegrees();
+                converter.ConvertFDegreees(weather.main.temp_max);
+                double temp_max = converter.GetCDegrees();
+                converter.ConvertFDegreees(weather.main.temp_min);
+                double temp_min = converter.GetCDegrees();
+                DisplayCity c = new DisplayCity { Name = i, Temp = temp, TempMax = temp_max, TempMin = temp_min };
+                datagrid_cities.Add(c);
+            }
+
+            BindingSource source = new BindingSource();
+            source.DataSource = datagrid_cities;
+            dataGridView1.DataSource = source;
+
+            panel_add.Visible = false;
+            panel4.Visible = true; 
         }
 
         private void add_button_Click(object sender, EventArgs e)
         {
             panel_add.Visible = true;
+            panel4.Visible = true;
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.CurrentCell.ColumnIndex == 1 | dataGridView1.CurrentCell.ColumnIndex == 2 | dataGridView1.CurrentCell.ColumnIndex == 3 | dataGridView1.CurrentCell.ColumnIndex == 4)
+                return;
+
+            user_cities.RemoveAt(dataGridView1.CurrentCell.RowIndex);
+
+            IProxyWeather proxy = new ProxyWeather();
+            TotalCDegrees degrees = new TotalCDegrees();
+            FDegreesConverter converter = new FDegreesConverter(degrees);
+
+            dataGridView1.Rows.Clear();
+
+            foreach (var i in user_cities)
+            {
+                var weather = proxy.Weather(i);
+                converter.ConvertFDegreees(weather.main.temp);
+                double temp = converter.GetCDegrees();
+                converter.ConvertFDegreees(weather.main.temp_max);
+                double temp_max = converter.GetCDegrees();
+                converter.ConvertFDegreees(weather.main.temp_min);
+                double temp_min = converter.GetCDegrees();
+                DisplayCity c = new DisplayCity { Name = i, Temp = temp, TempMax = temp_max, TempMin = temp_min };
+                datagrid_cities.Add(c);
+            }
+
+            BindingSource source = new BindingSource();
+            source.DataSource = datagrid_cities;
+            dataGridView1.DataSource = source;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string city = user_cities[dataGridView1.CurrentCell.RowIndex];
+
+            selected_city.Text = city;
+
+            IProxyWeather proxy = new ProxyWeather();
+            TotalCDegrees degrees = new TotalCDegrees();
+            FDegreesConverter converter = new FDegreesConverter(degrees);
+
+            var forecast = proxy.Forecast(city);
+
+            converter.ConvertFDegreees(forecast.list[0].main.temp);
+            double temp = converter.GetCDegrees();
+            today_w.Text = ""+temp;
+            converter.ConvertFDegreees(forecast.list[1].main.temp);
+            temp = converter.GetCDegrees();
+            day1_w.Text = "" + temp;
+            converter.ConvertFDegreees(forecast.list[2].main.temp);
+            temp = converter.GetCDegrees();
+            day2_w.Text = "" + temp;
+            converter.ConvertFDegreees(forecast.list[3].main.temp);
+            temp = converter.GetCDegrees();
+            day3_w.Text = "" + temp;
+            converter.ConvertFDegreees(forecast.list[4].main.temp);
+            temp = converter.GetCDegrees();
+            day4_w.Text = "" + temp;
+            converter.ConvertFDegreees(forecast.list[5].main.temp);
+            temp = converter.GetCDegrees();
+            day5_w.Text = "" + temp;
+
+            panel4.Visible = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string cities = "";
+
+            foreach(var i in user_cities)
+            {
+                if (cities == "")
+                    cities += i;
+                else
+                    cities += "|" + i;
+            }
+
+            active_user.Cities = cities;
+
+            string s =_service.Update(active_user);
+
+            panel3.Visible = true;
+            panel_menu.Visible = true;
+            panel5.Visible = true;
+            panel4.Visible = true;
+            panel_add.Visible = true;
+            panel2.Visible = true;
+            panel1.Visible = true;
+
+            MessageBox.Show(s, "OK");
         }
     }
 }

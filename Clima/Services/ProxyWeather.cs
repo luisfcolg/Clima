@@ -12,7 +12,7 @@ namespace Clima.Services
     {
         private RestClient _client;
         private string appid = "b1e34d4d55487b41db609a28e5854900";
-        private string units = "metric";
+        private string units = "imperial";
 
         public ProxyWeather()
         {

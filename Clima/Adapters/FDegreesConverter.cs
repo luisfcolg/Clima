@@ -17,9 +17,14 @@ namespace Clima.Adapters
 
         }
 
+        public FDegreesConverter(TotalCDegrees d)
+        {
+            _CDegrees = d;
+        }
+
         public void ConvertFDegreees(double FDegrees)
         {
-            _CDegrees.SetCDegrees((FDegrees-32)/Rate);
+            _CDegrees.SetCDegrees(Math.Round((FDegrees-32)/Rate, 2));
         }
 
         public double GetCDegrees()
