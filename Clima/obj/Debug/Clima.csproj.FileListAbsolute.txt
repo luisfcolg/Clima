@@ -9,3 +9,4 @@ C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Exam
 C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.csproj.CopyComplete
 C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.exe
 C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.pdb
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.Form1.resources

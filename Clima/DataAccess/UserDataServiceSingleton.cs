@@ -47,7 +47,7 @@ namespace Clima.DataAccess
                         Value = user.Username
                     };
 
-                    var par2 = new SqlParameter("@email", SqlDbType.DateTime)
+                    var par2 = new SqlParameter("@email", SqlDbType.NVarChar)
                     {
                         Direction = ParameterDirection.Input,
                         Value = user.Email
@@ -65,7 +65,13 @@ namespace Clima.DataAccess
                         Value = user.Cities
                     };
 
-                    var par5 = new SqlParameter("@haserror", SqlDbType.Bit)
+                    var par5 = new SqlParameter("@passtype", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = user.Passtype
+                    };
+
+                    var par6 = new SqlParameter("@haserror", SqlDbType.Bit)
                     {
                         Direction = ParameterDirection.Output
                     };
@@ -75,6 +81,7 @@ namespace Clima.DataAccess
                     command.Parameters.Add(par3);
                     command.Parameters.Add(par4);
                     command.Parameters.Add(par5);
+                    command.Parameters.Add(par6);
 
                     command.ExecuteNonQuery();
 
@@ -113,7 +120,7 @@ namespace Clima.DataAccess
                         Value = username
                     };
 
-                    var par2 = new SqlParameter("@pass", SqlDbType.DateTime)
+                    var par2 = new SqlParameter("@pass", SqlDbType.NVarChar)
                     {
                         Direction = ParameterDirection.Input,
                         Value = password
@@ -128,24 +135,26 @@ namespace Clima.DataAccess
                     command.Parameters.Add(par2);
                     command.Parameters.Add(par3);
 
+                    result = null;
+
                     var dataReader = command.ExecuteReader();
                     while (dataReader.Read())
                     {
                         var user = new User
                         {
-                            Id = Convert.ToInt32(dataReader["iduser"].ToString()),
                             Username = dataReader["username"].ToString(),
                             Email = dataReader["email"].ToString(),
                             Password = dataReader["pass"].ToString(),
                             Cities = dataReader["cities"].ToString()
                         };
                         result = user;
+                        break;
                     }
                 }
             }
             catch
             {
-                // ignored
+                result = null;
             }
             finally
             {
@@ -175,7 +184,7 @@ namespace Clima.DataAccess
                         Value = user.Username
                     };
 
-                    var par2 = new SqlParameter("@email", SqlDbType.DateTime)
+                    var par2 = new SqlParameter("@email", SqlDbType.NVarChar)
                     {
                         Direction = ParameterDirection.Input,
                         Value = user.Email
@@ -203,6 +212,58 @@ namespace Clima.DataAccess
                     command.Parameters.Add(par3);
                     command.Parameters.Add(par4);
                     command.Parameters.Add(par5);
+
+                    command.ExecuteNonQuery();
+
+                    result = !Convert.ToBoolean(command.Parameters["@haserror"].Value.ToString());
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            finally
+            {
+                _client.Close();
+            }
+
+            return result;
+        }
+
+        public bool VerifyUser(string username, string email)
+        {
+            var result = false;
+            try
+            {
+                if (_client.Open())
+                {
+                    var command = new SqlCommand
+                    {
+                        Connection = _client.Connection,
+                        CommandText = "verifyuser",
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    var par1 = new SqlParameter("@username", SqlDbType.NVarChar)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = username
+                    };
+
+                    var par2 = new SqlParameter("@email", SqlDbType.NVarChar)
+                    {
+                        Direction = ParameterDirection.Input,
+                        Value = email
+                    };
+
+                    var par3 = new SqlParameter("@haserror", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    command.Parameters.Add(par1);
+                    command.Parameters.Add(par2);
+                    command.Parameters.Add(par3);
 
                     command.ExecuteNonQuery();
 

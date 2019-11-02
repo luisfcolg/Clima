@@ -13,7 +13,7 @@ namespace Clima.Strategy
             string[] parts = mail.Split('@');
             string[] domain = parts[1].Split('.');
 
-            if (domain.Length == 0)
+            if (domain.Length == 1)
                 return false;
 
             foreach (var i in domain)

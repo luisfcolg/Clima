@@ -75,10 +75,14 @@
     <Compile Include="Services\IProxyWeather.cs" />
     <Compile Include="Services\ProxyCountry.cs" />
     <Compile Include="Services\ProxyWeather.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Strategy\IValidateMail.cs" />
     <Compile Include="Strategy\ValidateMailAt.cs" />
     <Compile Include="Strategy\ValidateMailClass.cs" />
     <Compile Include="Strategy\ValidateMailDomain.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
