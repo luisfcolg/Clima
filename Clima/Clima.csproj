@@ -56,7 +56,9 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\PasswordHashSingleton.cs" />
+    <Compile Include="Models\CityClass.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Weather.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +66,10 @@
     <Compile Include="Services\IProxyWeather.cs" />
     <Compile Include="Services\ProxyCountry.cs" />
     <Compile Include="Services\ProxyWeather.cs" />
+    <Compile Include="Strategy\IValidateMail.cs" />
+    <Compile Include="Strategy\ValidateMailAt.cs" />
+    <Compile Include="Strategy\ValidateMailClass.cs" />
+    <Compile Include="Strategy\ValidateMailDomain.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -87,7 +93,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataAccess\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="SQL\Script.sql" />
   </ItemGroup>
