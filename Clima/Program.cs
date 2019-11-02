@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Clima.Services;
 using Clima.Models;
+using Clima.PasswordHelper;
 
 namespace Clima
 {

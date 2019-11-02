@@ -19,7 +19,7 @@ namespace Clima.Strategy
 
         public bool Validate()
         {
-            return _strategy.Validate(_mail)
+            return _strategy.Validate(_mail);
         }
     }
 }
