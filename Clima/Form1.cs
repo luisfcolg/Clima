@@ -221,14 +221,17 @@ namespace Clima
             foreach(var i in user_cities)
             {
                 var weather = proxy.Weather(i);
-                converter.ConvertFDegreees(weather.main.temp);
-                double temp = converter.GetCDegrees();
-                converter.ConvertFDegreees(weather.main.temp_max);
-                double temp_max = converter.GetCDegrees();
-                converter.ConvertFDegreees(weather.main.temp_min);
-                double temp_min = converter.GetCDegrees();
-                DisplayCity c = new DisplayCity { Name = i, Temp = temp, TempMax = temp_max, TempMin = temp_min };
-                datagrid_cities.Add(c);
+                if (weather.main != null)
+                {
+                    converter.ConvertFDegreees(weather.main.temp);
+                    double temp = converter.GetCDegrees();
+                    converter.ConvertFDegreees(weather.main.temp_max);
+                    double temp_max = converter.GetCDegrees();
+                    converter.ConvertFDegreees(weather.main.temp_min);
+                    double temp_min = converter.GetCDegrees();
+                    DisplayCity c = new DisplayCity { Name = i, Temp = temp, TempMax = temp_max, TempMin = temp_min };
+                    datagrid_cities.Add(c);
+                }
             }
 
             BindingSource source = new BindingSource();
