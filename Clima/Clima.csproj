@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\FDegreesConverter.cs" />
+    <Compile Include="Adapters\IConverter.cs" />
     <Compile Include="DataAccess\SQLClient.cs" />
     <Compile Include="DataAccess\UserDataServiceSingleton.cs" />
     <Compile Include="Form1.cs">
@@ -59,6 +61,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Password.cs" />
+    <Compile Include="Models\TotalCDegrees.cs" />
     <Compile Include="PasswordHelper\PasswordBuilder.cs" />
     <Compile Include="Models\CityClass.cs" />
     <Compile Include="Models\Country.cs" />
