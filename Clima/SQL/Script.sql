@@ -24,8 +24,8 @@ create procedure adduser
 	@email nvarchar(50),
 	@pass nvarchar(50),
 	@cities nvarchar(1000),
-	@haserror bit out,
-	@passtype int
+	@passtype int,
+	@haserror bit out
 )
 as
 set @haserror = 1
@@ -55,7 +55,7 @@ begin try
 if exists(select top 1 1 from users where username = @username and pass = @pass)
 begin
 	set @haserror = 0
-	select top 1 1 from users where username = @username and pass = @pass
+	select * from users where username = @username and pass = @pass
 end
 end try
 begin catch
