@@ -1,0 +1,11 @@
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.csprojAssemblyReference.cache
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.Properties.Resources.resources
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.csproj.GenerateResource.cache
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\bin\Debug\Clima.exe.config
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\bin\Debug\Clima.exe
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\bin\Debug\Clima.pdb
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\bin\Debug\RestSharp.dll
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\bin\Debug\RestSharp.xml
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.csproj.CopyComplete
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.exe
+C:\Users\luis_\OneDrive\Escritorio\Escuela\7° Semestre\Patrones de Diseño\Examen 2\Clima\Clima\obj\Debug\Clima.pdb
